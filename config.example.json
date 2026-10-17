@@ -1,0 +1,8 @@
+{
+  "bot_token": "123456789:PUT_YOUR_BOT_TOKEN_HERE",
+  "chat_id": 123456789,
+  "warning_minutes": 10,
+  "device_name": "My PC",
+  "language": "en",
+  "telegram_skipped": false
+}

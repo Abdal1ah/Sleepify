@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build output
+build/
+dist/
+*.spec
+installer/Output/
+
+# NEVER commit your settings or logs (they can contain your bot token)
+config.json
+*.log
+timer_state.json
+logo.stamp
+
+# Old (v0.x) runtime folder
+/icons/
+
+# Editors
+.vscode/
+.idea/

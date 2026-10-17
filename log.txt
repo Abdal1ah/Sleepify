@@ -1,0 +1,16 @@
+2026-10-17 01:34:30 | Started Hibernate timer 00:11:00 (by telegram)
+2026-10-17 01:35:30 | Warning shown, 00:10:00 left
+2026-10-17 01:36:18 | Extended by 10m, 00:19:12 left (by telegram)
+2026-10-17 01:36:26 | Cancelled Hibernate timer, 00:19:04 was left (by telegram)
+2026-10-17 01:36:51 | Started Hibernate timer 00:04:00 (by telegram)
+2026-10-17 01:40:51 | Executing Hibernate
+2026-10-17 01:42:01 | Started Shutdown timer 00:00:30 (by telegram)
+2026-10-17 01:42:32 | Executing Shutdown
+2026-10-17 17:33:28 | Started Hibernate timer 00:04:00 (by telegram)
+2026-10-17 17:33:55 | Started Shutdown timer 02:00:00 (by app)
+2026-10-17 17:33:58 | Cancelled Shutdown timer, 01:59:57 was left (by app)
+2026-10-17 18:20:20 | Started Shutdown timer 00:00:05 (by telegram)
+2026-10-17 18:20:25 | Executing Shutdown
+2026-10-17 21:24:06 | Started Hibernate timer 00:00:04 (by telegram)
+2026-10-17 21:24:10 | Executing Hibernate
+2026-10-17 21:24:57 | Hibernate command failed

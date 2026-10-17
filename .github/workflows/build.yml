@@ -1,0 +1,59 @@
+name: Build Windows installer
+
+# Runs when you push a tag like v1.0.0 (creates a GitHub Release with the installer),
+# or by hand from the Actions tab (only uploads the installer as a build artifact).
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install packages
+        run: python -m pip install -r requirements.txt -r requirements-build.txt pytest
+
+      - name: Run the tests
+        run: python -m pytest -q tests
+
+      - name: Make icons
+        run: python tools/make_icons.py
+
+      - name: Version number
+        id: ver
+        shell: pwsh
+        run: |
+          $v = "${{ github.ref_name }}"
+          if ($v -match '^v(\d+\.\d+\.\d+.*)$') { $v = $Matches[1] } else { $v = "0.0.0-dev" }
+          "version=$v" >> $env:GITHUB_OUTPUT
+
+      - name: Build Sleepify.exe
+        run: python -m PyInstaller --noconfirm --clean --onedir --windowed --name Sleepify --icon assets/app.ico --collect-all customtkinter --hidden-import pystray._win32 --add-data "assets;assets" Sleepify.py
+
+      - name: Install Inno Setup
+        run: choco install innosetup -y --no-progress
+
+      - name: Build the installer
+        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DAppVersion=${{ steps.ver.outputs.version }} installer\Sleepify.iss'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SleepifySetup
+          path: installer/Output/*.exe
+
+      - name: Publish the GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: installer/Output/*.exe
+          generate_release_notes: true
