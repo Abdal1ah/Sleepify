@@ -3,7 +3,7 @@ rem Builds Sleepify.exe (PyInstaller) and, if Inno Setup is installed, SleepifyS
 rem Run it from the repository folder:  build.bat
 setlocal
 cd /d "%~dp0"
-set "VER=1.0.0"
+set "VER=1.1.0"
 
 echo [1/4] Installing the Python packages...
 py -m pip install -r requirements.txt -r requirements-build.txt
@@ -14,7 +14,7 @@ py tools\make_icons.py
 if errorlevel 1 goto :fail
 
 echo [3/4] Building Sleepify.exe with PyInstaller...
-py -m PyInstaller --noconfirm --clean --onedir --windowed --name Sleepify --icon assets\app.ico --collect-all customtkinter --hidden-import pystray._win32 --add-data "assets;assets" Sleepify.py
+py -m PyInstaller --noconfirm --clean --onedir --windowed --name Sleepify --icon assets\app.ico --collect-all customtkinter --collect-submodules sleepify --hidden-import pystray._win32 --add-data "assets;assets" Sleepify.py
 if errorlevel 1 goto :fail
 echo     Done: dist\Sleepify\Sleepify.exe
 

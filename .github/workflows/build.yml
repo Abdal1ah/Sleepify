@@ -2,6 +2,7 @@ name: Build Windows installer
 
 # Runs when you push a tag like v1.0.0 (creates a GitHub Release with the installer),
 # or by hand from the Actions tab (only uploads the installer as a build artifact).
+# Code signing (to reduce the SmartScreen warning) is described in docs/SIGNING.md.
 on:
   push:
     tags: ["v*"]
@@ -29,6 +30,10 @@ jobs:
       - name: Make icons
         run: python tools/make_icons.py
 
+      - name: Remember which repository this is (used by "check for updates")
+        shell: pwsh
+        run: '"${{ github.repository }}" | Out-File -Encoding ascii -NoNewline assets/repo.txt'
+
       - name: Version number
         id: ver
         shell: pwsh
@@ -38,7 +43,7 @@ jobs:
           "version=$v" >> $env:GITHUB_OUTPUT
 
       - name: Build Sleepify.exe
-        run: python -m PyInstaller --noconfirm --clean --onedir --windowed --name Sleepify --icon assets/app.ico --collect-all customtkinter --hidden-import pystray._win32 --add-data "assets;assets" Sleepify.py
+        run: python -m PyInstaller --noconfirm --clean --onedir --windowed --name Sleepify --icon assets/app.ico --collect-all customtkinter --collect-submodules sleepify --hidden-import pystray._win32 --add-data "assets;assets" Sleepify.py
 
       - name: Install Inno Setup
         run: choco install innosetup -y --no-progress

@@ -2,7 +2,7 @@
 ; Build:  ISCC.exe /DAppVersion=1.0.0 installer\Sleepify.iss     (build.bat does this for you)
 
 #ifndef AppVersion
-  #define AppVersion "1.0.0"
+  #define AppVersion "1.1.0"
 #endif
 
 [Setup]

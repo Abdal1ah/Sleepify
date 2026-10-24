@@ -5,6 +5,7 @@ __pycache__/
 venv/
 
 # Build output
+assets/repo.txt
 build/
 dist/
 *.spec

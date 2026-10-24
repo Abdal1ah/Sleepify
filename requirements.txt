@@ -2,3 +2,5 @@ customtkinter>=5.2.2
 pystray>=0.19.5
 pillow>=10.0
 requests>=2.31
+psutil>=5.9
+arabic-reshaper>=3.0
